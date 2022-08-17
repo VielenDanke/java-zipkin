@@ -1,7 +1,6 @@
 package kz.vielendanke.javazipkin;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.cloud.sleuth.Span;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/books")
 @RequiredArgsConstructor
-class Controller {
+class BookController {
 
     private final BookService bookService;
     private final Tracer tracer;
