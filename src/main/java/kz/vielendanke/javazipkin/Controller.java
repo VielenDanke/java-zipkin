@@ -14,22 +14,18 @@ import java.util.List;
 @RequiredArgsConstructor
 class Controller {
 
-    private final UserRepository userRepository;
+    private final BookService bookService;
     private final Tracer tracer;
 
     @GetMapping
-    public ResponseEntity<List<Book>> findAll() {
-        Span span = tracer.nextSpan().name("findAllBooks");
-        List<Book> books = userRepository.findAll();
-        span.end();
+    public ResponseEntity<List<Book>> findAll(@RequestHeader(name = "customer", required = false) String customerName) {
+        List<Book> books = bookService.findAll(customerName);
         return ResponseEntity.ok(books);
     }
 
     @PostMapping
     public ResponseEntity<Void> save(@RequestBody Book book) {
-        Span span = tracer.nextSpan().name("saveBook");
-        userRepository.save(book);
-        span.end();
+        bookService.save(book);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
